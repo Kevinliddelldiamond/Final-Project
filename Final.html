@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <link rel="stylsheet" href="Final.css"/>
+
+<style>
+/* this part of the code in the <style> lets us edit and design the color and size of all the divs, coloms, and tables. */
+.tictactoe{
+  margin-bottom: 50%;
+  margin-top: 50%;
+}
+table {
+	border-collapse: collapse;
+}
+
+td {
+	background-color: black;
+	border: 3px solid white;
+	font-size:80px;
+	color:#FFDF00;;
+	border-radius: 30px 30px 30px 30px;
+}
+ul{
+  list-style-type: none;
+  margin:0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+li {
+  float: left;
+}
+li a, .dropbtn{
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover, .dropdown:hover, .dropbtn {background-color: red;
+  -webkit-transition-property:background;
+  -moz-transition-property:background;
+  -o-transition-property:background;
+  transition-property:background;
+  -webkit-transition-duration:1s;
+  -moz-transition-duration:1s;
+  -o-transition-duration:1s;
+  transition-duration:1s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear ;
+  -o-transition-timing-function:linear ;
+  transition-timing-function: linear ;}
+li.dropdown {
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: red;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(192,192,192,0.3);
+  z-index: 1;
+  -webkit-transition-property:background;
+  -moz-transition-property:background;
+  -o-transition-property:background;
+  transition-property:background;
+  -webkit-transition-duration:1s;
+  -moz-transition-duration:1s;
+  -o-transition-duration:1s;
+  transition-duration:1s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear ;
+  -o-transition-timing-function:linear ;
+  transition-timing-function: linear ;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;}
+/* ///////////////////////////////////////// */
+</style>
+
+  </head>
+  <body>
+<!--lines 72 to 80 help make the drop down menu work. the code also make it when you press one of the buttons it will redirect you to a different page -->
+    <ul>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">About creators</a>
+    <div class="dropdown-content">
+     <p><b><a href="https://sites.google.com/sbcsc.k12.in.us/jesushernandez/home" target="_blank">Jesus Hernandez </a></b></p>
+     <p><b><a href="https://sites.google.com/sbcsc.k12.in.us/Kevinliddell/home" target="_blank">Kevin Liddell</a></b></p>
+    </div>
+  </li>
+</ul>
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- the code in lines 83 to 89 edits the back ground color and sizes and positions of the divs.  -->
+<body style= "background-color: solid white ;"/>
+    <div  style= "margin-top: 200px ; margin-bottom:200px;" id="tictactoe1" align="middle">
+      <div  style= "margin-top: 200px ; margin-bottom:200px;" id="tictactoe2" align="middle">
+        <div  style= "margin-top: 200px ; margin-bottom:200px;" id="tictactoe3" align="middle">
+    </div>
+		<div align="center">
+			<span id='turn'>Player X</span>
+		</div>
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+<script src="Final.js">
+var N_SIZE = 3,
+		EMPTY = "&nbsp;",
+		boxes = [],
+		turn = "X",
+		score,
+		moves;
+
+	function init() {
+		var board = document.createElement('table');
+    board.setAttribute("border", 1);
+    board.setAttribute("cellspacing", 0);
+
+		var identifier = 1;
+		for (var i = 0; i < N_SIZE; i++) {
+			var row = document.createElement('tr');
+			board.appendChild(row);
+			for (var j = 0; j < N_SIZE; j++) {
+        var cell = document.createElement('td');
+        cell.setAttribute('height', 120);
+        cell.setAttribute('width', 120);
+        cell.setAttribute('align', 'center');
+        cell.setAttribute('valign', 'center');
+				cell.classList.add('col' + j,'row' + i);
+				if (i == j) {
+					cell.classList.add('diagonal0');
+				}
+				if (j == N_SIZE - i - 1) {
+					cell.classList.add('diagonal1');
+				}
+				cell.identifier = identifier;
+				cell.addEventListener("click", set);
+				row.appendChild(cell);
+				boxes.push(cell);
+				identifier += identifier;
+			}
+		}
+
+		document.getElementById("tictactoe1").appendChild(board);
+		startNewGame();
+	}
+
+	function startNewGame() {
+		score = {
+			"X": 0,
+			"O": 0
+		};
+		moves = 0;
+		turn = "X";
+		boxes.forEach(function (square) {
+			square.innerHTML = EMPTY;
+		});
+	}
+
+	function win(clicked) {
+		var memberOf = clicked.className.split(/\s+/);
+		for (var i = 0; i < memberOf.length; i++) {
+			var testClass = '.' + memberOf[i];
+      var items = contains('#tictactoe1 ' + testClass, turn);
+			if (items.length == N_SIZE) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+function contains(selector, text) {
+  var elements = document.querySelectorAll(selector);
+  return [].filter.call(elements, function(element){
+    return RegExp(text).test(element.textContent);
+  });
+}
+
+	function set() {
+		if (this.innerHTML !== EMPTY) {
+			return;
+		}
+		this.innerHTML = turn;
+		moves += 1;
+		score[turn] += this.identifier;
+		if (win(this)) {
+			alert('Winner: Player ' + turn);
+			startNewGame();
+		} else if (moves === N_SIZE *9) {
+			alert("Draw");
+			startNewGame();
+		} else {
+			turn = turn === "X" ? "O" : "X";
+			document.getElementById('turn').textContent = 'Player ' + turn;
+		}
+	}
+
+	init();
+  var N_SIZE = 3,
+  		EMPTY = "&nbsp;",
+  		boxes = [],
+  		turn = "X",
+  		score,
+  		moves;
+
+  	function init() {
+  		var board = document.createElement('table');
+      board.setAttribute("border", 1);
+      board.setAttribute("cellspacing", 0);
+
+  		var identifier = 1;
+  		for (var i = 0; i < N_SIZE; i++) {
+  			var row = document.createElement('tr');
+  			board.appendChild(row);
+  			for (var j = 0; j < N_SIZE; j++) {
+          var cell = document.createElement('td');
+          cell.setAttribute('height', 120);
+          cell.setAttribute('width', 120);
+          cell.setAttribute('align', 'center');
+          cell.setAttribute('valign', 'center');
+  				cell.classList.add('col' + j,'row' + i);
+  				if (i == j) {
+  					cell.classList.add('diagonal0');
+  				}
+  				if (j == N_SIZE - i - 1) {
+  					cell.classList.add('diagonal1');
+  				}
+  				cell.identifier = identifier;
+  				cell.addEventListener("click", set);
+  				row.appendChild(cell);
+  				boxes.push(cell);
+  				identifier += identifier;
+  			}
+  		}
+
+  		document.getElementById("tictactoe2").appendChild(board);
+  		startNewGame();
+  	}
+
+  	function startNewGame() {
+  		score = {
+  			"X": 0,
+  			"O": 0
+  		};
+  		moves = 0;
+  		turn = "X";
+  		boxes.forEach(function (square) {
+  			square.innerHTML = EMPTY;
+  		});
+  	}
+
+  	function win(clicked) {
+  		var memberOf = clicked.className.split(/\s+/);
+  		for (var i = 0; i < memberOf.length; i++) {
+  			var testClass = '.' + memberOf[i];
+        var items = contains('#tictactoe2 ' + testClass, turn);
+  			if (items.length == N_SIZE) {
+  				return true;
+  			}
+  		}
+  		return false;
+  	}
+
+  function contains(selector, text) {
+    var elements = document.querySelectorAll(selector);
+    return [].filter.call(elements, function(element){
+      return RegExp(text).test(element.textContent);
+    });
+  }
+
+  	function set() {
+  		if (this.innerHTML !== EMPTY) {
+  			return;
+  		}
+  		this.innerHTML = turn;
+  		moves += 1;
+  		score[turn] += this.identifier;
+  		if (win(this)) {
+  			alert('Winner: Player ' + turn);
+  			startNewGame();
+  		} else if (moves === N_SIZE * 9) {
+  			alert("Draw");
+  			startNewGame();
+  		} else {
+  			turn = turn === "X" ? "O" : "X";
+  			document.getElementById('turn').textContent = 'Player ' + turn;
+  		}
+  	}
+
+  	init();
+    var N_SIZE = 3,
+    		EMPTY = "&nbsp;",
+    		boxes = [],
+    		turn = "X",
+    		score,
+    		moves;
+
+    	function init() {
+    		var board = document.createElement('table');
+        board.setAttribute("border", 1);
+        board.setAttribute("cellspacing", 0);
+
+    		var identifier = 1;
+    		for (var i = 0; i < N_SIZE; i++) {
+    			var row = document.createElement('tr');
+    			board.appendChild(row);
+    			for (var j = 0; j < N_SIZE; j++) {
+            var cell = document.createElement('td');
+            cell.setAttribute('height', 120);
+            cell.setAttribute('width', 120);
+            cell.setAttribute('align', 'center');
+            cell.setAttribute('valign', 'center');
+    				cell.classList.add('col' + j,'row' + i);
+    				if (i == j) {
+    					cell.classList.add('diagonal0');
+    				}
+    				if (j == N_SIZE - i - 1) {
+    					cell.classList.add('diagonal1');
+    				}
+    				cell.identifier = identifier;
+    				cell.addEventListener("click", set);
+    				row.appendChild(cell);
+    				boxes.push(cell);
+    				identifier += identifier;
+    			}
+    		}
+
+    		document.getElementById("tictactoe3").appendChild(board);
+    		startNewGame();
+    	}
+
+    	function startNewGame() {
+    		score = {
+    			"X": 0,
+    			"O": 0
+    		};
+    		moves = 0;
+    		turn = "X";
+    		boxes.forEach(function (square) {
+    			square.innerHTML = EMPTY;
+    		});
+    	}
+
+    	function win(clicked) {
+    		var memberOf = clicked.className.split(/\s+/);
+    		for (var i = 0; i < memberOf.length; i++) {
+    			var testClass = '.' + memberOf[i];
+          var items = contains('#tictactoe3 ' + testClass, turn);
+    			if (items.length == N_SIZE) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+
+    function contains(selector, text) {
+      var elements = document.querySelectorAll(selector);
+      return [].filter.call(elements, function(element){
+        return RegExp(text).test(element.textContent);
+      });
+    }
+
+    	function set() {
+    		if (this.innerHTML !== EMPTY) {
+    			return;
+    		}
+    		this.innerHTML = turn;
+    		moves += 1;
+    		score[turn] += this.identifier;
+    		if (win(this)) {
+    			alert('Winner: Player ' + turn);
+    			startNewGame();
+    		} else if (moves === N_SIZE * 9) {
+    			alert("Draw");
+    			startNewGame();
+    		} else {
+    			turn = turn === "X" ? "O" : "X";
+    			document.getElementById('turn').textContent = 'Player ' + turn;
+    		}
+    	}
+
+    	init();
+</script>
+
+  </body>
+</html>
