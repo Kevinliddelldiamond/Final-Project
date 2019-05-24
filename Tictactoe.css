@@ -1,0 +1,134 @@
+body{
+  -webkit-animation-name: example;
+  -webkit-animation-duration: 15s;
+  animation-name: example;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+}
+@-webkit-keyframes example {
+  0%   {background-color: white;}
+  25%  {background-color: yellow;}
+  50%  {background-color: grey;}
+  100% {background-color: white;}
+}
+@keyframes example {
+  0%   {background-color: white;}
+  25%  {background-color: yellow;}
+  50%  {background-color: grey;}
+  100% {background-color: white;}
+}
+
+ul{
+  list-style-type: none;
+  margin:0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+li {
+  float: left;
+}
+li a, .dropbtn{
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover, .dropdown:hover, .dropbtn {background-color: red;
+   }
+li.dropdown {
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: red;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(192,192,192,0.3);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown:hover .dropdown-content {
+  display: block;}
+
+#row1{
+  margin-top: 8%;
+  margin-left: 40%;
+}
+#row2{
+  margin-left: 40%;
+}
+#row3{
+  margin-left: 40%;
+}
+#box1{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box2{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box3{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box4{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box5{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box6{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box7{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box8{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+#box9{
+  height: 150px;
+  width: 150px;
+background-color: black;
+display: inline-block;
+}
+
+
+
+.red{
+  background-color: red !important;
+}
+.blue{
+  background-color: blue !important;
+}
