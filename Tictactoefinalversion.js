@@ -14,12 +14,12 @@ function placePiece(){
   clickCount++;
 
 
-  if (clickCount%2===0){
+  if (clickCount%2===0){     ///determines id the number of clicks is odd ir even to put the right color down
     $(this).addClass("red taken");
 
 
   }else {
-    $(this).addClass("blue taken");
+    $(this).addClass("blue taken");  /// making the color blue if clicked
 
   }
 
@@ -85,7 +85,7 @@ function checkforwin (){    /// Check for win function checks for the win or tie
 
 }
 }
-function clear(){
+function clear(){               ///After refreshing the page all the boxes are cleared
   $(".col").removeClass('red');
   $(".col").removeClass('blue');
   $(".col").removeClass('taken');

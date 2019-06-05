@@ -1,6 +1,6 @@
 body{
   -webkit-animation-name: example;
-  -webkit-animation-duration: 15s;
+  -webkit-animation-duration: 15s;        /*The animation of the color change lasts 15 seconds befor changinh in to the next color and we looped ti using 4 color slots and have the beginnigng and end the same color so that it changes smootly because when the loop ends it snaps back into its first color instead of phasing like it does for the rest of it */
   animation-name: example;
   animation-duration: 15s;
   animation-iteration-count: infinite;
